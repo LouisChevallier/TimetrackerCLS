@@ -9,11 +9,6 @@ if(isset($_GET['id']) OR is_numeric($_GET['id'])){
     extract($_GET);
     $id = strip_tags($id);
     $group = getGroup($id);
-
-$idGroup = $id;
-var_dump($idGroup);
-$numberMember = countUsersInGroup($idGroup);
-var_dump($numberMember);
 }
 
 ?>

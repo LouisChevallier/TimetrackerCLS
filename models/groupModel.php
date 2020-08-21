@@ -45,8 +45,8 @@ function countUsersInGroup ($idGroup)
 {
     $db = connect();
 
-    $query = $db->prepare('SELECT COUNT(*) FROM groups_member WHERE id = ?');
-    $query->execute();
+    $query = $db->prepare('SELECT COUNT(*) AS total FROM groups_member WHERE id_groups = ?');
+    $query->execute(array($idGroup));
     $data = $query->fetch(PDO::FETCH_OBJ);
     return $data;
     $query->closeCursor();

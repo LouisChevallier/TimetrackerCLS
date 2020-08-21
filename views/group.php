@@ -10,7 +10,12 @@
     <h1>Group View</h1>
 </div>
 
-<h3> <?= strtoupper($group->nameGroup) ?> <?= $numberMember ?>(? membres)</li></h3>
+<?php
+    $idGroup = $group->id;
+    $numberMember = countUsersInGroup($idGroup);
+?>
+
+<h3> <?= strtoupper($group->nameGroup) ?> (<?= $numberMember->total ?> membres)</li></h3>
     <ul>
                 <li><a href="group.php?id=<?= $group->id ?>"><?= $group->nameGroup ?></a></li>
                 <li><?= $group->description ?></li>
