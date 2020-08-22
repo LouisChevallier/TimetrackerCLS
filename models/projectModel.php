@@ -16,7 +16,7 @@ function countProjects ()
 {
     $db = connect();
 
-    $query = $db->prepare('SELECT COUNT(*) FROM project');
+    $query = $db->prepare('SELECT COUNT(*) AS totalp FROM project');
     $query->execute();
     $data = $query->fetch(PDO::FETCH_OBJ);
     return $data;

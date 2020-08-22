@@ -43,7 +43,12 @@
             <ul>
                 <li><a href="group.php?id=<?= $group->id ?>"><?= $group->nameGroup ?></a></li>
                 <li><?= $group->description ?></li>
-                <li>Nombre membres : ?</li>
+
+                <?php 
+                    $idGroup = $group->id;
+                    $numberMember = countUsersInGroup ($idGroup)
+                ?>
+                <li>Nombre membres : <?= $numberMember->total ?></li>
             </ul><hr>
         <?php endforeach; ?>
 </div><br/>

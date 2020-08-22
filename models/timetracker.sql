@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:8889
--- Généré le :  ven. 21 août 2020 à 16:46
+-- Généré le :  sam. 22 août 2020 à 01:55
 -- Version du serveur :  5.7.26
 -- Version de PHP :  7.4.2
 
@@ -31,7 +31,7 @@ CREATE TABLE `groups` (
 --
 
 INSERT INTO `groups` (`id`, `nameGroup`, `description`) VALUES
-(1, 'L\'Elite', 'Groupe L\'Elite composé de deux développeur du tonnerre !');
+(1, 'L\'Elite', 'La crème de la crème des développeurs');
 
 -- --------------------------------------------------------
 
@@ -73,7 +73,8 @@ CREATE TABLE `project` (
 --
 
 INSERT INTO `project` (`id`, `name`, `description`, `dateCreation`, `statutProject`, `id_users`) VALUES
-(1, 'Blog Voyage', 'Le blog voyage de @iamcloetravel', '2020-08-21', 'En cours', 2);
+(1, 'CLS Options Site web', 'Premier site web de l\'entreprise CLS Option Corp réalisé par L\'Elite', '2020-08-22', 'In progress', 2),
+(2, 'Blog pour iamchloe', 'Blog travel/influencer pour le compte de @iamchloe sur instagram', '2020-08-20', 'In progress', 1);
 
 -- --------------------------------------------------------
 
@@ -102,14 +103,50 @@ INSERT INTO `project_groupmember` (`id`, `id_groups`, `id_project`) VALUES
 
 CREATE TABLE `task` (
   `id` int(11) NOT NULL,
-  `author` varchar(255) NOT NULL,
+  `title` varchar(255) NOT NULL,
   `textTask` varchar(255) NOT NULL,
   `date` date NOT NULL,
-  `startTime` time NOT NULL,
-  `stopTime` time NOT NULL,
-  `id_users` int(11) NOT NULL,
+  `statutTask` varchar(255) DEFAULT NULL,
   `id_project` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `task`
+--
+
+INSERT INTO `task` (`id`, `title`, `textTask`, `date`, `statutTask`, `id_project`) VALUES
+(1, 'fsdf', 'dfdf', '2020-08-22', 'takable', 1),
+(2, 'ttttt', 'tttttt', '2020-08-22', 'takable', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `task_timerecorded`
+--
+
+CREATE TABLE `task_timerecorded` (
+  `id` int(11) NOT NULL,
+  `startTime` time NOT NULL,
+  `stopTime` time DEFAULT NULL,
+  `id_users` int(11) NOT NULL,
+  `id_task` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `task_timerecorded`
+--
+
+INSERT INTO `task_timerecorded` (`id`, `startTime`, `stopTime`, `id_users`, `id_task`) VALUES
+(4, '00:17:15', '00:37:21', 2, 1),
+(5, '00:39:30', '01:37:34', 2, 1),
+(9, '00:45:12', '00:55:00', 2, 2),
+(11, '00:47:33', '00:47:48', 2, 1),
+(13, '01:09:20', '01:10:27', 2, 1),
+(16, '01:12:35', '01:12:49', 2, 2),
+(17, '01:14:10', NULL, 2, 2),
+(18, '01:14:10', '01:15:24', 2, 2),
+(19, '01:15:31', NULL, 2, 1),
+(20, '01:15:31', '01:18:31', 2, 1);
 
 -- --------------------------------------------------------
 
@@ -132,8 +169,10 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `prenom`, `nom`, `password`, `role`, `statut`) VALUES
-(1, 'max', 'Maxou', 'Lecroquant', '$2y$10$pV09uKARu6cNckMOUUgAS.eAZSOXCvxGXdbFsHMl9lMzTkkmrZekK', 'membre', 'offline'),
-(2, 'lou', 'Louis', 'Labroc', '$2y$10$cr6z1sho1RZaUZbJxpKaZ.kU4H/EQN3LORWdqblyBSTErj7WkDOoC', 'membre', 'offline');
+(1, 'max', 'Maxime', 'Julius', '$2y$10$PsjdR3cKPLNplD0TFTuZIOlzlSUvEeAAduBwM/gTvEfbJ1ICf07lu', 'membre', 'offline'),
+(2, 'lou', 'Louis', 'Dos Santos', '$2y$10$h4MkHtWgR0qdab0pmNQsa.YvpaNoUTfcQaj1hmQBlk.DTExG/R./m', 'membre', 'offline'),
+(3, 'delphi', 'Delphine', 'Lepront', '$2y$10$JBoQbdVJ6FHTGJcvorpbeOZJhuypR8shuXWi368XMpcmt4/wBxnNq', 'membre', 'offline'),
+(4, 'bast', 'Bastien', 'Cordier', '$2y$10$MsTkqecvnzXBJ62x3Lu/i.NzF8upKsyCX/h/mPw0jAfxuc7.JoVfe', 'membre', 'online');
 
 --
 -- Index pour les tables déchargées
@@ -173,8 +212,15 @@ ALTER TABLE `project_groupmember`
 --
 ALTER TABLE `task`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `task_users_FK` (`id_users`),
-  ADD KEY `task_project0_FK` (`id_project`);
+  ADD KEY `task_project_FK` (`id_project`);
+
+--
+-- Index pour la table `task_timerecorded`
+--
+ALTER TABLE `task_timerecorded`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `task_timerecorded_users_FK` (`id_users`),
+  ADD KEY `task_timerecorded_task0_FK` (`id_task`);
 
 --
 -- Index pour la table `users`
@@ -202,7 +248,7 @@ ALTER TABLE `groups_member`
 -- AUTO_INCREMENT pour la table `project`
 --
 ALTER TABLE `project`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT pour la table `project_groupmember`
@@ -214,13 +260,19 @@ ALTER TABLE `project_groupmember`
 -- AUTO_INCREMENT pour la table `task`
 --
 ALTER TABLE `task`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT pour la table `task_timerecorded`
+--
+ALTER TABLE `task_timerecorded`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT pour la table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Contraintes pour les tables déchargées
@@ -250,5 +302,11 @@ ALTER TABLE `project_groupmember`
 -- Contraintes pour la table `task`
 --
 ALTER TABLE `task`
-  ADD CONSTRAINT `task_project0_FK` FOREIGN KEY (`id_project`) REFERENCES `project` (`id`),
-  ADD CONSTRAINT `task_users_FK` FOREIGN KEY (`id_users`) REFERENCES `users` (`id`);
+  ADD CONSTRAINT `task_project_FK` FOREIGN KEY (`id_project`) REFERENCES `project` (`id`);
+
+--
+-- Contraintes pour la table `task_timerecorded`
+--
+ALTER TABLE `task_timerecorded`
+  ADD CONSTRAINT `task_timerecorded_task0_FK` FOREIGN KEY (`id_task`) REFERENCES `task` (`id`),
+  ADD CONSTRAINT `task_timerecorded_users_FK` FOREIGN KEY (`id_users`) REFERENCES `users` (`id`);
