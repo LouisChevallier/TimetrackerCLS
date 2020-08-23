@@ -10,16 +10,14 @@
     <h1>Profile View</h1>
 </div>
 
+<p><a href="index.php">Retour</a></p>
+
 <h3> <?= strtoupper($user->username) ?> (<?= $user->statut ?>) </li></h3>
     <ul>
         <li>Prénom <?= $user->prenom ?></li>
         <li>Nom : <?= $user->nom ?></li>
         <li>Statut : <?= $user->role ?></li>
     </ul>
-
-                
-                <p><a href="index.php">Retour</a></p>
-        <br/><br/><br/>
 
         <?php
         if(isset($success)){

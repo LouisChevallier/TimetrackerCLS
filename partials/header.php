@@ -11,7 +11,7 @@
         <?php } ?>
 
         <?php if(isset($_SESSION['role']) && $_SESSION['role'] == 'membre'){ ?>
-        <li class="nav-item"><a class="nav-link" href="backofficeuser.php">Mes projets</a></li>
+        <li class="nav-item"><a class="nav-link" href="groups.php">Groupes</a></li>
         <?php } ?>
 
         <?php if(empty($_SESSION)){ ?>

@@ -9,6 +9,40 @@ if(isset($_GET['id']) OR is_numeric($_GET['id'])){
     extract($_GET);
     $id = strip_tags($id);
     $group = getGroup($id);
+    $users = getUsers();
+
+    $idGroup = $group->id;
+    $numberMember = countUsersInGroup($idGroup);
+
+    $idGroupp = $group->id;
+    $idGroupp = getIdUserInGroup($idGroupp);
+
+    $idGrouppNo = $group->id;
+    $idGrouppNo = getNoIdUserInGroup($idGrouppNo);
+
+
+    if(isset($_POST['addusertoagroup'])){
+        extract($_POST);
+        $errors = array();
+
+        $idaddeduser = strip_tags($utilisateur);
+        $idGroupp = $group->id;
+        var_dump($idaddeduser);
+        var_dump($idGroupp);
+
+        if(empty($idaddeduser)){
+            array_push($errors, 'Choisir un utilisateur');
+        }
+        if(count($errors) == 0){
+            $useradded = addUserToAGroup($idaddeduser, $idGroupp);
+
+            $success = 'L\'utilisateur a été ajouté au groupe';
+            unset($idaddeduser);
+            unset($$idGroupp);
+
+            header("Refresh:0");
+        }
+    }
 }
 
 ?>

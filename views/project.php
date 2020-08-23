@@ -8,6 +8,7 @@
 <body>
 <div>
     <h1>Project View</h1>
+    <p><a href="index.php">Retour</a></p>
 </div>
 
 <h3> <?= strtoupper($project->name) ?> (<?= $project->statutProject ?>) </li></h3>
@@ -16,20 +17,40 @@
         <li>Créé le <?= $project->dateCreation ?> par <a href="user.php?id=<?= $project->id_users ?>"><?= $creator->username ?></a></li>
     </ul>
 
-                
-                <p><a href="index.php">Retour</a></p>
-        <br/><br/><br/>
+
+<div>
+    <h2>Groupe(s) assignés </h2>
+        <?php foreach ($groupproj as $gj):
+            $idGroup = $gj->id_groups;
+            $groupID = getGroupInProject ($idGroup);
+                foreach ($groupID as $detGroup): ?>
+                    <ul>
+                        <li><a href="group.php?id=<?= $detGroup->id ?>"><?= $detGroup->nameGroup ?></a></li>
+                        <li><?= $detGroup->description ?></li>
+
+                        <?php 
+                            $idGroup = $detGroup->id;
+                            $numberMember = countUsersInGroup ($idGroup)
+                        ?>
+                        <li>Nombre membres : <?= $numberMember->total ?></li>
+                        <li><a href="group.php?id=<?= $detGroup->id ?>">[Ajouter des membres]</a></li>
+                    </ul><hr>
+                <?php endforeach;
+         endforeach; ?>
+</div><br/>
+
+
 
 <div>
     <h2>Tâches</h2>
-    <a>+ Add tache ici</a>
+    <p>+ ADD TÂCHE ICI</p>
         <div class="card-body">
             <form action="project.php?id=<?= $project->id ?>" method="post">
                 <p><label for="author">Title :</label><br/>
                 <input type="text" name="title" id="title" class="form-control" value="<?php if (isset($title)) echo $title ?>" /></p>
                 <p><label for="textTask">textTask :</label><br/>
-                <textarea name="textTask" id="title" class="form-control" cols="30" rows="8"/><?php if (isset($textTask)) echo $textTask ?></textarea></p>
-                <button type="submit" name="addtask">Envoyer</button> 
+                <textarea name="textTask" id="title" class="form-control" cols="30" rows="4"/><?php if (isset($textTask)) echo $textTask ?></textarea></p>
+                <button type="submit" name="addtask">Ajouter</button> 
             </form>
         </div>
 
@@ -131,6 +152,19 @@
     </div>
 </div><br/>
 
+
+<h2>+ Assigner groupe(s)</h2>
+    <div class="card-body">
+        <form action="project.php?id=<?= $project->id ?>" method="post">
+            <label for="proj">Groupes :</label><br/>
+            <select name="proj" id="proj" >
+                <?php foreach ($groups as $groupo): ?>
+                    <option value="<?= $groupo->id ?>"><?= $groupo->nameGroup ?></option>
+                <?php endforeach; ?>
+            </select>
+            <button type="submit" name="addgrouptoproject">Ajouter</button> 
+        </form>
+    </div>
 
 
         <?php
