@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:8889
--- Généré le :  sam. 22 août 2020 à 01:55
+-- Généré le :  Dim 23 août 2020 à 14:58
 -- Version du serveur :  5.7.26
 -- Version de PHP :  7.4.2
 
@@ -31,7 +31,10 @@ CREATE TABLE `groups` (
 --
 
 INSERT INTO `groups` (`id`, `nameGroup`, `description`) VALUES
-(1, 'L\'Elite', 'La crème de la crème des développeurs');
+(1, 'L\'Elite', 'La crème de la crème des développeurs'),
+(3, 'eeee', 'eeeee'),
+(4, 'les carottes sont cuites', 'carottes'),
+(5, 'bru', 'bru');
 
 -- --------------------------------------------------------
 
@@ -51,7 +54,12 @@ CREATE TABLE `groups_member` (
 
 INSERT INTO `groups_member` (`id`, `id_groups`, `id_users`) VALUES
 (1, 1, 2),
-(2, 1, 1);
+(5, 3, 4),
+(6, 4, 3),
+(7, 4, 5),
+(10, 5, 1),
+(11, 4, 4),
+(12, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -93,7 +101,10 @@ CREATE TABLE `project_groupmember` (
 --
 
 INSERT INTO `project_groupmember` (`id`, `id_groups`, `id_project`) VALUES
-(1, 1, 1);
+(1, 1, 1),
+(2, 1, 2),
+(4, 5, 1),
+(5, 4, 2);
 
 -- --------------------------------------------------------
 
@@ -172,7 +183,8 @@ INSERT INTO `users` (`id`, `username`, `prenom`, `nom`, `password`, `role`, `sta
 (1, 'max', 'Maxime', 'Julius', '$2y$10$PsjdR3cKPLNplD0TFTuZIOlzlSUvEeAAduBwM/gTvEfbJ1ICf07lu', 'membre', 'offline'),
 (2, 'lou', 'Louis', 'Dos Santos', '$2y$10$h4MkHtWgR0qdab0pmNQsa.YvpaNoUTfcQaj1hmQBlk.DTExG/R./m', 'membre', 'offline'),
 (3, 'delphi', 'Delphine', 'Lepront', '$2y$10$JBoQbdVJ6FHTGJcvorpbeOZJhuypR8shuXWi368XMpcmt4/wBxnNq', 'membre', 'offline'),
-(4, 'bast', 'Bastien', 'Cordier', '$2y$10$MsTkqecvnzXBJ62x3Lu/i.NzF8upKsyCX/h/mPw0jAfxuc7.JoVfe', 'membre', 'online');
+(4, 'bast', 'Bastien', 'Cordier', '$2y$10$MsTkqecvnzXBJ62x3Lu/i.NzF8upKsyCX/h/mPw0jAfxuc7.JoVfe', 'membre', 'offline'),
+(5, 'jack', 'Jacky', 'Chan', '$2y$10$ORK749xPrNTt0dSEl2k0qOlLfBd8DBfKZhHKlQKlXLt3MeBQusb6q', 'membre', 'online');
 
 --
 -- Index pour les tables déchargées
@@ -236,13 +248,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT pour la table `groups`
 --
 ALTER TABLE `groups`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT pour la table `groups_member`
 --
 ALTER TABLE `groups_member`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT pour la table `project`
@@ -254,7 +266,7 @@ ALTER TABLE `project`
 -- AUTO_INCREMENT pour la table `project_groupmember`
 --
 ALTER TABLE `project_groupmember`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT pour la table `task`
@@ -272,7 +284,7 @@ ALTER TABLE `task_timerecorded`
 -- AUTO_INCREMENT pour la table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Contraintes pour les tables déchargées
