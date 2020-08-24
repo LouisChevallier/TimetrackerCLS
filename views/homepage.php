@@ -8,7 +8,6 @@
 <body>
 <div>
     <h1>Homepage View</h1>
-    <p>En construction</p>
 
 <div>
     <h2>Parcourir les users</h2>

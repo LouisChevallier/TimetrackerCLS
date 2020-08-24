@@ -46,10 +46,10 @@
     <p>+ ADD TÂCHE ICI</p>
         <div class="card-body">
             <form action="project.php?id=<?= $project->id ?>" method="post">
-                <p><label for="author">Title :</label><br/>
+                <p><label for="title">Title :</label><br/>
                 <input type="text" name="title" id="title" class="form-control" value="<?php if (isset($title)) echo $title ?>" /></p>
                 <p><label for="textTask">textTask :</label><br/>
-                <textarea name="textTask" id="title" class="form-control" cols="30" rows="4"/><?php if (isset($textTask)) echo $textTask ?></textarea></p>
+                <textarea name="textTask" id="textTask" class="form-control" cols="30" rows="4"/><?php if (isset($textTask)) echo $textTask ?></textarea></p>
                 <button type="submit" name="addtask">Ajouter</button> 
             </form>
         </div>

@@ -14,12 +14,6 @@ if(isset($_GET['id']) OR is_numeric($_GET['id'])){
     $idGroup = $group->id;
     $numberMember = countUsersInGroup($idGroup);
 
-    $idGroupp = $group->id;
-    $idGroupp = getIdUserInGroup($idGroupp);
-
-    $idGrouppNo = $group->id;
-    $idGrouppNo = getNoIdUserInGroup($idGrouppNo);
-
 
     if(isset($_POST['addusertoagroup'])){
         extract($_POST);
